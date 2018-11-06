@@ -21,20 +21,7 @@
          *
          * @type {HTMLElement}
          */
-        logsListEl = document.getElementById('logs'),
-
-        /**
-         * Alert popup.
-         *
-         * @type {HTMLElement}
-         */
-        alertPopup = document.getElementById('alert-popup'),
-        JSON_DATA = 
-        [
-         //{DATA:}
-        ],
-        
-        vlist
+        logsListEl = document.getElementById('logs')
         ;
     
     function makeLottoElem()
@@ -95,29 +82,6 @@
     	//evtlstPagebeforehide({});
     	//evtlstPagebeforeshow({target:document.querySelector('#main')})
     }
-    
-    /**
-     * Displays popup with alert message.
-     *
-     * @param {string} message
-     */
-    function showAlert(message) {
-        alertPopup.querySelector('#message').innerHTML = message;
-        tau.openPopup(alertPopup);
-        alertPopup.addEventListener('click', function onClick() {
-            tau.closePopup(alertPopup);
-        });
-    }
-
-    /**
-     * Performs action when getAppsContext method of tizen.application API
-     * results in error.
-     *
-     * @param {Error} err
-     */
-    function onGetAppsContextError(err) {
-        console.error('getAppsContext exc', err);
-    }
 
     /**
      * On click on start button handler.
@@ -129,17 +93,6 @@
     	//test();
     	//evtlstPagebeforehide({});
     	refreshLotto();
-    }
-
-    /**
-     * Creates TAU Selector and bind it's events.
-     */
-    function bindSelectorEvents() {
-        var page = document.querySelector('#main'),
-            elSelector = page.querySelector('#selector'),
-            handler = page.querySelector('.popup-handler'),
-            popup = page.querySelector('#selector-popup'),
-            selector = null;
     }
     
     function keyEventHandler(event) {
@@ -168,20 +121,12 @@
     function initMain() {
     	refreshLotto(true);
     	
-    	startBtn.addEventListener('click', onStartBtnTap);
+    	if(startBtn) {
+    		startBtn.addEventListener('click', onStartBtnTap);
+    	}
 
     	// Add event listeners for Tizen hardware key
         window.addEventListener('tizenhwkey', keyEventHandler);
-    	
-    	return;
-    	
-    	// Add event listeners for tauMoreOptions & tauList components.
-        document.querySelector("#main").addEventListener("pagebeforeshow", function() {
-            tauMoreOptions.pageBeforeShowHandler("#main");
-        });
-    	
-        
-        document.querySelector("#main").addEventListener("pagebeforehide", tauMoreOptions.pageHideHandler);
     }
 
     initMain();

@@ -1,6 +1,17 @@
-function lottoString()
+function lottoString(count)
 {
-	return lottoArrayToString(lotto(1,45));
+	var lottoStrings;
+	
+	if (count === undefined)
+		return lottoArrayToString(lotto(1,45));
+	
+	lottoStrings = new Array(count);
+	
+	for (var i = 0 ; i < count ; i++) {
+		lottoStrings[i] = lottoArrayToString(lotto(1,45));
+	}
+	
+	return lottoStrings;
 }
 
 function lottoArrayToString(arr)
