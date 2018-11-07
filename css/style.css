@@ -1,3 +1,43 @@
 * {
     font-family: Verdana, Lucida Sans, Arial, Helvetica, sans-serif;
 }
+
+.li-text-sub {
+	font-size: 25pt;
+}
+
+#setting_lcount #counter {
+    color: white;
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+    left: 150px;
+    top: 160px;
+    vertical-align: middle;
+}
+
+#setting_lcount .circle-button {
+	position : absolute;
+	top: 160px;
+    height: 60px;
+    width: 60px;
+    border: 3px solid white;
+    border-radius: 50%;
+    line-height: 54px;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 50px;
+    color: white;
+    display: inline-block;
+}
+
+#setting_lcount .inc_btn{
+	left: 50px;
+}
+
+#setting_lcount .dec_btn{
+	right: 50px;
+	line-height: 47px;
+}

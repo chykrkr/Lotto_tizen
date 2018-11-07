@@ -10,12 +10,28 @@
 </head>
 <body>
 	<div id="main" class="ui-page ui-page-active">
-	<div class="ui-content">
-	<ul id="logs" class="ui-listview"></ul>
-    <footer class="ui-footer ui-bottom-button ui-fixed">
+	<header class="ui-header ui-has-more">
+            <h2 class="ui-title">App Manager</h2>
+            <button type="button" class="ui-more ui-icon-overflow"></button>
+    </header>
+	<div class="ui-content" align="center" style="width:340px;">
+	<ul id="logs" class="ui-listview content_text"></ul>
+	</div>
+
+	<footer class="ui-footer ui-bottom-button ui-fixed">
 	<button class="ui-btn" id="btn-start">START</button>
 	</footer>
 	</div>
+
+	<div id="setting_lcount" class="ui-page">
+		<header class="ui-header">
+		<h3 class="ui-title">Tickets</h3>
+		</header>
+		<div class="ui-content" align="center">
+		<div id="counter">12</div>
+		<div id="btn_inc" class="circle-button inc_btn">+</div>
+		<div id="btn_dec" class="circle-button dec_btn">-</div>
+		</div>
 	</div>
 	
 	<script src="lib/tau/wearable/js/tau.js"></script>
