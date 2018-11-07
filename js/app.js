@@ -123,52 +123,51 @@
 
 		if (page.id === "main") {
 			if (prev_count !== lotto.getGames()) {
-			refreshLotto();
-		}
+				refreshLotto();
+			}
 		}
     }
 
     function rotarydetent(ev) {
-	/* Get the direction value from the event */
-	var direction = ev.detail.direction;
-	var delta = 40;
-	var scroller;
-
-	scroller = document.querySelector('.ui-scroller');
-
-	if (!scroller) {
-		return;
-	}
-
-	if (direction === 'CW') {
-		/* Add behavior for clockwise rotation */
-		scroller.scrollTop += delta;
-	} else if (direction === 'CCW') {
-		/* Add behavior for counter-clockwise rotation */
-		document.querySelector('.ui-scroller').scrollTop -= delta;
-	}
+		/* Get the direction value from the event */
+		var direction = ev.detail.direction;
+		var delta = 40;
+		var scroller;
+	
+		scroller = document.querySelector('.ui-scroller');
+	
+		if (!scroller) {
+			return;
+		}
+	
+		if (direction === 'CW') {
+			/* Add behavior for clockwise rotation */
+			scroller.scrollTop += delta;
+		} else if (direction === 'CCW') {
+			/* Add behavior for counter-clockwise rotation */
+			scroller.scrollTop -= delta;
+		}
     }
 
     /**
      * Initializes main module.
      */
     function initMain() {
-
-	if(startBtn) {
-		startBtn.addEventListener('click', onStartBtnTap);
-	}
-
-	incbtn.addEventListener('click', onIncBtn);
-	decbtn.addEventListener('click', onDecBtn);
-
-	// Add event listeners for Tizen hardware key
-	window.addEventListener('tizenhwkey', keyEventHandler);
-
-	ui_more.addEventListener('click', optionHandler);
-
-	document.addEventListener("pagebeforeshow", pagebeforeshow);
-
-	document.addEventListener('rotarydetent', rotarydetent);
+		if(startBtn) {
+			startBtn.addEventListener('click', onStartBtnTap);
+		}
+	
+		incbtn.addEventListener('click', onIncBtn);
+		decbtn.addEventListener('click', onDecBtn);
+	
+		// Add event listeners for Tizen hardware key
+		window.addEventListener('tizenhwkey', keyEventHandler);
+	
+		ui_more.addEventListener('click', optionHandler);
+	
+		document.addEventListener("pagebeforeshow", pagebeforeshow);
+	
+		document.addEventListener('rotarydetent', rotarydetent);
     }
 
     initMain();
