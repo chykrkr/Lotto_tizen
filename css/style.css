@@ -3,13 +3,19 @@
 }
 
 .li-text-sub {
-	font-size: 20pt;
+	font-size: 26pt;
 }
 
+/*
 #logs {
 	width: 270px;
     left: 30px;
     position: relative;
+}
+*/
+
+.more_options_btn {
+	z-index: 10;
 }
 
 #setting_lcount #counter {
