@@ -9,6 +9,9 @@ var lotto = (function() {
 			count: 6,
 			games: 5,
 			maxGames : 100,
+			generate : generatePseudoRandom,
+			truerandomUrl : "https://www.random.org/sequences/?format=plain&rnd=new",
+			callbackTrueRandom : null,
 	};
 
 	function arrayToString(arr)
@@ -46,8 +49,9 @@ var lotto = (function() {
 			arr[j] = t;
 		}
 	}
-
-	function generate(min, max, count) {
+	
+	function generatePseudoRandomSingle(min, max, count)
+	{
 		var shuffle;
 		var temp;
 		var sorted;
@@ -77,8 +81,85 @@ var lotto = (function() {
 		return sorted;
 	}
 
-	lotto.get = function(games) {
+	function generatePseudoRandom(min, max, count, games) {
 		var result;
+		
+		result = new Array(games);
+		
+		for (var i = 0 ; i < games ; i++) {
+			result[i] = arrayToString(generatePseudoRandomSingle(min, max, count));
+		}
+		
+		return result;
+	}
+
+	/*
+	function dummy(min, max, count)
+	{
+		var shuffle;
+		var temp;
+		
+		if (count === undefined) {
+			count = settings.count;
+		}
+
+		if (min > max) {
+			temp = min;
+			min = max;
+			max = temp;
+		}
+
+		shuffle = new Array(max - min + 1);
+		
+		for (var i = 0 ; i < shuffle.length ; i++) {
+			shuffle[i] = 0;
+		}
+		
+		return shuffle.slice(0, count);
+	}
+	*/
+
+	function httpGetSync(theUrl)
+	{
+	    var xmlHttp = new XMLHttpRequest();
+	    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+	    xmlHttp.send( null );
+	    return xmlHttp.responseText;
+	}
+
+	function httpGetAsync(theUrl, count, preCallback, afterCallback)
+	{
+	    var xmlHttp = new XMLHttpRequest();
+	    xmlHttp.onreadystatechange = function() { 
+	        if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+	        	preCallback(xmlHttp.responseText, count, afterCallback);
+	        }
+	    };
+	    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+	    xmlHttp.send(null);
+	}
+	
+	function trueRandomUrlBuilder(min, max)
+	{
+		var url;
+
+		url = settings.truerandomUrl + "&min=" + min + "&max=" + max + "&col=1";
+		
+		return url;
+	}
+	
+	function preCallback(responseTxt, count, afterCallback)
+	{
+		alert(responseTxt)
+	}
+	
+	function generateTrueRandom(min, max, count, games, afterCallback) {
+		var url = trueRandomUrlBuilder(min, max);
+		
+		httpGetAsync(url, count, preCallback, afterCallback);
+	}
+
+	lotto.get = function(games, callback) {
 		var min = settings.min;
 		var max = settings.max;
 		var count = settings.count;
@@ -86,14 +167,12 @@ var lotto = (function() {
 		if (games === undefined) {
 			games = settings.games;
 		}
-
-		result = new Array(games);
-
-		for (var i = 0 ; i < games ; i++) {
-			result[i] = arrayToString(generate(min, max, count));
+		
+		if (callback === undefined) {
+			return settings.generate(min, max, count, games);
 		}
-
-		return result;
+		
+		settings.generate(min, max, count, games, callback);
 	};
 
 	lotto.getGames = function() {
@@ -118,6 +197,27 @@ var lotto = (function() {
 		}
 
 		settings.games--;
+	};
+	
+	lotto.setRandomMethod = function(useTrueRandom) {
+		if (useTrueRandom === undefined || useTrueRandom === false) {
+			settings.generate = generatePseudoRandom;
+		} else {
+			settings.generate = generateTrueRandom;
+		}
+	};
+	
+	/* Returns true if trueRandom method or else returns false */
+	lotto.getRandomMethod = function() {
+		if (settings.generate === generateTrueRandom) {
+			return true;
+		} else {
+			return false;
+		}
+	};
+	
+	lotto.setCallbackTrueRandom = function(callback) {
+		settings.callbackTrueRandom = callback;
 	};
 
 	return lotto;

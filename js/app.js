@@ -41,42 +41,56 @@
 
 	return newElement;
     }
+    
+    function refreshLottoAsyncCallback()
+    {
+    	
+    }
+    
+    function refreshLottoSync()
+    {
+    	var scroller;
+		var lottos;
+		var i;
+	
+		lottos = lotto.get();
+	
+		if (logsListEl.children.length !== lottos.length) {
+			logsListEl.innerHTML = "";
+
+			for (i = 0 ; i < lottos.length ; i++) {
+				logsListEl.appendChild(makeLottoElem());
+			}
+		}
+	
+		for (i = 0 ; i < lottos.length ; i++) {
+			logsListEl.children[i].innerHTML = '<div class="li-text-sub">'  +
+		    lottos[i] + '</div>';
+		}
+	
+		scroller = document.getElementById('main').querySelector('.ui-scroller');
+	
+		//scroller = document.querySelector('.ui-scroller');
+	
+		if (scroller) {
+			scroller.scrollTop = 0;
+		}
+    }
 
     function refreshLotto()
     {
-	var scroller;
-	var lottos;
-	var i;
-
-	lottos = lotto.get();
-
-	if (logsListEl.children.length !== lottos.length) {
-		logsListEl.innerHTML = "";
-
-		for (i = 0 ; i < lottos.length ; i++) {
-			logsListEl.appendChild(makeLottoElem());
-		}
-	}
-
-	for (i = 0 ; i < lottos.length ; i++) {
-		logsListEl.children[i].innerHTML = '<div class="li-text-sub">'  +
-	    lottos[i] + '</div>';
-	}
-
-	scroller = document.getElementById('main').querySelector('.ui-scroller');
-
-	//scroller = document.querySelector('.ui-scroller');
-
-	if (scroller) {
-		scroller.scrollTop = 0;
-	}
+    	if (lotto.getRandomMethod() === false) {
+    		refreshLottoSync();
+    	} else {
+    		lotto.get(undefined, refreshLottoAsyncCallback);
+    	}	
     }
 
     /**
      * On click on start button handler.
      */
     function onStartBtnTap() {
-	refreshLotto();
+    	refreshLotto();
     }
 
     function keyEventHandler(event) {
@@ -168,6 +182,8 @@
 		document.addEventListener("pagebeforeshow", pagebeforeshow);
 	
 		document.addEventListener('rotarydetent', rotarydetent);
+		
+		//lotto.setRandomMethod(true);
     }
 
     initMain();
