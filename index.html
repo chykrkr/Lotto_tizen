@@ -25,13 +25,36 @@
 
 	<div id="setting_lcount" class="ui-page">
 		<header class="ui-header">
-		<h3 class="ui-title">Tickets</h3>
+			<h3 class="ui-title">Settings</h3>
 		</header>
-		<div class="ui-content" align="center">
-		<div id="counter">12</div>
-		<div id="btn_inc" class="circle-button inc_btn">+</div>
-		<div id="btn_dec" class="circle-button dec_btn">-</div>
-		</div>
+		<div id="settings_sectionchanger" class="ui-content" style="height: 200px;">
+	      <!--Section changer has only one child-->
+	      <div>
+	      	<section>
+				<div id="counter">12</div>
+				<div id="btn_inc" class="circle-button inc_btn">+</div>
+				<div id="btn_dec" class="circle-button dec_btn">-</div>
+			</section>
+			<section>
+				<ul class="ui-listview">
+					<li class="li-has-toggle">
+						<label>
+							True Random
+							<div class="ui-toggleswitch">
+								<input id="chkTrueRandom" type="checkbox" class="ui-switch-input">
+								<div class="ui-switch-button"></div>
+							</div>
+						</label>					
+					</li>
+				</ul>
+
+			</section>
+			<section>
+				<div> Lotto is one and only solution</div>
+			</section>
+	      </div>
+	    </div>
+		
 	</div>
 	
 	<script src="lib/tau/wearable/js/tau.js"></script>

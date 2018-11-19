@@ -18,6 +18,7 @@
 	z-index: 10;
 }
 
+/*
 #setting_lcount #counter {
     color: white;
     position: absolute;
@@ -29,7 +30,21 @@
     top: 160px;
     vertical-align: middle;
 }
+*/
 
+#setting_lcount #counter {
+    color: white;
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+    left: 150px;
+    top: 40px;
+    vertical-align: middle;
+}
+
+/*
 #setting_lcount .circle-button {
 	position : absolute;
 	top: 160px;
@@ -44,12 +59,45 @@
     color: white;
     display: inline-block;
 }
+*/
+
+#setting_lcount .circle-button {
+	position : absolute;
+    height: 60px;
+    width: 60px;
+    border: 3px solid white;
+    border-radius: 50%;
+    line-height: 54px;
+    vertical-align: middle;
+    text-align: center;
+    font-size: 50px;
+    color: white;
+    display: inline-block;
+}
 
 #setting_lcount .inc_btn{
 	left: 50px;
+	top: 40px;
 }
 
 #setting_lcount .dec_btn{
 	right: 50px;
+	top: 40px;
 	line-height: 47px;
+}
+
+.ui-listview .li-has-toggle .ui-toggleswitch {
+	position: absolute;
+	right: 30px;
+	top: 50%;
+	-webkit-transform: translate3d(0, -50%, 0);
+}
+
+.ui-listview li.li-has-toggle > label {
+	display: block;
+	padding: 31.5px 94px 31.5px 40px;
+	margin-top: -30px;
+	margin-bottom: -21px;
+	margin-left: -38px;
+	margin-right: -8px;
 }

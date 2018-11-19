@@ -150,7 +150,17 @@ var lotto = (function() {
 	
 	function preCallback(responseTxt, count, afterCallback)
 	{
-		alert(responseTxt)
+		var arry;
+		var result;
+		
+		arry = responseTxt.split("\n").slice(0, count);
+		
+		arry.sort(sortComp);
+		
+		result = new Array(1);
+		result[0] = arrayToString(arry);
+		
+		afterCallback(result);
 	}
 	
 	function generateTrueRandom(min, max, count, games, afterCallback) {

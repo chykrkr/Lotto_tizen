@@ -15,6 +15,7 @@
 	 * @type {HTMLElement}
 	 */
 	startBtn = document.getElementById('btn-start'),
+	chkTrueRandom = document.getElementById('chkTrueRandom'),
 
 	incbtn = document.getElementById('btn_inc'),
 	decbtn = document.getElementById('btn_dec'),
@@ -42,20 +43,17 @@
 	return newElement;
     }
     
-    function refreshLottoAsyncCallback()
+    function refreshLottoAsyncCallback(lottos)
     {
-    	
+    	refreshList(lottos);
     }
     
-    function refreshLottoSync()
+    function refreshList(lottos)
     {
     	var scroller;
-		var lottos;
 		var i;
-	
-		lottos = lotto.get();
-	
-		if (logsListEl.children.length !== lottos.length) {
+		
+    	if (logsListEl.children.length !== lottos.length) {
 			logsListEl.innerHTML = "";
 
 			for (i = 0 ; i < lottos.length ; i++) {
@@ -76,6 +74,15 @@
 			scroller.scrollTop = 0;
 		}
     }
+    
+    function refreshLottoSync()
+    {
+		var lottos;
+
+		lottos = lotto.get();
+
+		refreshList(lottos);
+    }
 
     function refreshLotto()
     {
@@ -91,6 +98,10 @@
      */
     function onStartBtnTap() {
     	refreshLotto();
+    }
+    
+    function onchkTrueRandomClick() {    	
+    	lotto.setRandomMethod(chkTrueRandom.checked);
     }
 
     function keyEventHandler(event) {
@@ -167,8 +178,16 @@
      * Initializes main module.
      */
     function initMain() {
+    	var settingsPage = document.getElementById("setting_lcount");
+    	var element =  document.getElementById("settings_sectionchanger");
+    	var sectionChanger;
+
 		if(startBtn) {
 			startBtn.addEventListener('click', onStartBtnTap);
+		}
+		
+		if (chkTrueRandom) {
+			chkTrueRandom.addEventListener('click', onchkTrueRandomClick);
 		}
 	
 		incbtn.addEventListener('click', onIncBtn);
@@ -184,6 +203,19 @@
 		document.addEventListener('rotarydetent', rotarydetent);
 		
 		//lotto.setRandomMethod(true);
+		settingsPage.addEventListener("pageshow", function() {
+			/* Create the SectionChanger object */
+			sectionChanger = tau.widget.SectionChanger(element,
+					{circular: true,
+					orientation: "horizontal",
+					useBouncingEffect: true
+					});
+			});
+
+		settingsPage.addEventListener("pagehide", function() {
+			/* Release the object */
+			sectionChanger.destroy();
+			});
     }
 
     initMain();
